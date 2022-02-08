@@ -1,40 +1,23 @@
 ---
 
 - hosts: all
-  sudo: true
+  become: true
   tasks:
 
-  - name: update repository index
+  - name: install apache2 and php package for Ubuntu
     apt:
-      update_cache=yes
-    when: ansible_distribution == "Ubuntu"   
-
-  - name: install apache2 package
-    apt:
-      name: apache2
+      name:
+        - apache2
+        - libapache2-mod-php5
       state: latest
+      update_cache: yes
     when: ansible_distribution == "Ubuntu"
 
-  - name: add php support for apache
-    apt:
-      name: libapache2-mod-php5
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-
-  - name: update repository index for RHEL based Distro
+  - name : install apache2 and php package for CentOS
     yum:
-      name: '*'
+      name:
+        - apache2
+        - libapache2-mod-php5
       state: latest
-    when: ansible_distribution == "CentOS"
-
-  - name: install httpd package
-    yum:
-      name: httpd
-      state: latest
-    when: ansible_distribution == "CentOS"
-
-  - name: add php support for httpd
-    yum:
-      name: php
-      state: latest
+      update_cache: yes
     when: ansible_distribution == "CentOS"
