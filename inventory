@@ -3,3 +3,6 @@ vagrant@192.168.1.111
 
 [db_servers]
 vagrant@192.168.1.113
+
+[workstations]
+vagrant@192.168.1.110
