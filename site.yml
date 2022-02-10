@@ -8,13 +8,39 @@
     dnf:
       update_only: yes
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "CentOS"
 
   - name: install updates ( Ubuntu )
     apt:
       upgrade: dist
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Ubuntu"
+
+- hosts: all
+  become: true
+  tasks: 
+    
+  - name: create dizi user
+    tags: always
+    user:
+      name: dizi
+      groups: root
+
+  - name: add ssh key for dizi
+    tags: always
+    authorized_key:
+      user: dizi
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDA8rKgtuAZ8TysCbxQ28scmHa5oN1Nk5llu+sxEYG/6 ansible"
+
+  - name: add sudoers file for dizi
+    tags: always
+    copy:
+      src: sudoer_dizi
+      dest: /etc/sudoers.d/dizi
+      owner: root
+      group: root
 
 - hosts: workstations
   become: true
