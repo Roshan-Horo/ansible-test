@@ -39,3 +39,4 @@
       dest: /etc/sudoers.d/dizi
       owner: root
       group: root
+      mode: 0440
