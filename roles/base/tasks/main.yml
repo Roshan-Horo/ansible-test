@@ -1,0 +1,4 @@
+- name: add ssh key for dizi
+  authorized_key:
+    user: dizi
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDA8rKgtuAZ8TysCbxQ28scmHa5oN1Nk5llu+sxEYG/6 ansible"
