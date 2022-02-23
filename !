@@ -20,9 +20,16 @@
   lineinfile:
     path: /etc/apache2/apache2.conf
     regexp: '^Timeout'
-    line: Timeout 301
+    line: Timeout 299
   when: ansible_distribution == "Ubuntu" 
-  notify: restart_apache
+  register: apache2
+
+- name: restart apache ( Ubuntu )
+  tags: apache2,httpd
+  service:
+    name: "{{ apache_service }}"
+    state: restarted
+  when: apache2.changed
 
 - name: copy default html file for site
   tags: apache,apache2,httpd
